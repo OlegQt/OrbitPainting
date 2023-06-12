@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">KotlinGraphics_v1</string>
+    <string name="menu_render_name">Render</string>
+    <string name="menu_objects_name">Objects</string>
+</resources>
