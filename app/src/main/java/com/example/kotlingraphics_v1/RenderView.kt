@@ -6,13 +6,15 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.SurfaceView
 
-class RenderView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :
+class RenderView constructor(context: Context, attributeSet: AttributeSet) :
     SurfaceView(context, attributeSet) {
 
     private var isRunning = false
     private var renderThread: Thread? = null
+
     lateinit var engine: Engine
 
     private val paint = Paint()
@@ -23,17 +25,14 @@ class RenderView @JvmOverloads constructor(context: Context, attributeSet: Attri
         // Store the fps in millis
         val frameTime = System.currentTimeMillis() - frameStartTime
     }
-
     fun resumeRender() {
         isRunning = true
         startRenderThread()
     }
-
     fun pauseRender() {
         isRunning = false
         stopRenderThreat()
     }
-
     private fun startRenderThread() {
         if (renderThread == null) {
             renderThread = Thread {
@@ -44,7 +43,6 @@ class RenderView @JvmOverloads constructor(context: Context, attributeSet: Attri
         }
         renderThread?.start()
     }
-
     private fun stopRenderThreat() {
         try {
             // Stop the thread (rejoin the main thread)
@@ -55,7 +53,6 @@ class RenderView @JvmOverloads constructor(context: Context, attributeSet: Attri
 
         }
     }
-
     private fun draw() {
         if (this.holder.surface.isValid) {
             val canvas = holder.lockCanvas()
@@ -69,10 +66,13 @@ class RenderView @JvmOverloads constructor(context: Context, attributeSet: Attri
             }
         }
     }
-
     private fun drawEngine(canvas: Canvas){
         paint.color = Color.YELLOW
         paint.style = Paint.Style.FILL
         canvas.drawRect(engine.rect, paint)
+    }
+
+    override fun performClick(): Boolean {
+        return super.performClick()
     }
 }

@@ -1,7 +1,9 @@
 package com.example.kotlingraphics_v1
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlingraphics_v1.databinding.ActivityMainBinding
@@ -24,11 +26,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUiBehaviour() {
         binding.bottomMenu.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.page_1 -> changeScreenMode(ScreenMode.RENDER)
                 R.id.page_2 -> changeScreenMode(ScreenMode.OPTIONS)
                 else -> false
             }
+        }
+
+        renderView.setOnTouchListener { view, motionEvent ->
+            view.performClick()
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    Log.e("Engine", "${motionEvent.x}")
+                    engine.calculate()
+                }
+
+                else -> {
+
+                }
+            }
+            true
         }
     }
 
@@ -42,11 +59,13 @@ class MainActivity : AppCompatActivity() {
                     renderView.resumeRender()
                     changeCompleted = true
                 }
+
                 ScreenMode.OPTIONS -> {
                     renderView.pauseRender()
                     renderView.visibility = View.GONE
                     changeCompleted = true
                 }
+
                 else -> changeCompleted = false
             }
         }
@@ -73,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        renderView.resumeRender()
+        renderView.resumeRender() // Запускаем поток render
     }
 
     override fun onPause() {
