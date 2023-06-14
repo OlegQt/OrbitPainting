@@ -6,7 +6,11 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlingraphics_v1.logic.Engine
 import com.example.kotlingraphics_v1.databinding.ActivityMainBinding
+import com.example.kotlingraphics_v1.logic.SpaceObject
+import com.example.kotlingraphics_v1.logic.SpacePlanet
+import com.example.kotlingraphics_v1.logic.SpacePoint
 import com.example.kotlingraphics_v1.models.ScreenMode
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -33,12 +37,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        renderView.setOnTouchListener { view, motionEvent ->
+        renderView.setOnTouchListener { view, event ->
             view.performClick()
-            when (motionEvent.action) {
+
+            // event = motionEvent
+            when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    Log.e("Engine", "${motionEvent.x}")
-                    engine.calculate()
+                    Log.e("Engine", "${event.x}")
+
+                    val planet = SpacePlanet(event.x,event.y)
+                    planet.orbitCenter = SpacePoint()
+                    engine.addSpaceObject(planet)
+
                 }
 
                 else -> {

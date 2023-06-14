@@ -6,8 +6,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.SurfaceView
+import com.example.kotlingraphics_v1.logic.Engine
 
 class RenderView constructor(context: Context, attributeSet: AttributeSet) :
     SurfaceView(context, attributeSet) {
@@ -57,19 +57,29 @@ class RenderView constructor(context: Context, attributeSet: AttributeSet) :
         if (this.holder.surface.isValid) {
             val canvas = holder.lockCanvas()
             if (canvas !== null) {
+                // Make grey background
                 paint.color = Color.GRAY
                 val rect = RectF(0.0f, 0.0f, canvas.width.toFloat(), canvas.height.toFloat())
                 canvas.drawRect(rect, paint)
+
+                engine.calculate()
+                // Draw all
                 drawEngine(canvas)
 
+                // Finish drawing
                 holder.unlockCanvasAndPost(canvas)
             }
         }
     }
     private fun drawEngine(canvas: Canvas){
         paint.color = Color.YELLOW
+        paint.strokeWidth = 10.0f
         paint.style = Paint.Style.FILL
-        canvas.drawRect(engine.rect, paint)
+
+        engine.listObjects.forEach { it ->
+            canvas.drawPoint(it.xPos.toFloat(),it.yPos.toFloat(),paint)
+        }
+
     }
 
     override fun performClick(): Boolean {
