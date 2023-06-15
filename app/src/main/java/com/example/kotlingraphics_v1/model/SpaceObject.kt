@@ -1,4 +1,4 @@
-package com.example.kotlingraphics_v1.logic
+package com.example.kotlingraphics_v1.model
 
 abstract class SpaceObject(){
     var xPos:Float = 0.0f

@@ -1,4 +1,4 @@
-package com.example.kotlingraphics_v1.logic
+package com.example.kotlingraphics_v1.model
 
 import com.example.kotlingraphics_v1.operations.SetRotation
 import kotlin.math.cos

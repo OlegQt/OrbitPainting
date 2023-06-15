@@ -1,4 +1,4 @@
-package com.example.kotlingraphics_v1
+package com.example.kotlingraphics_v1.activities
 
 import android.os.Bundle
 import android.util.Log
@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kotlingraphics_v1.logic.Engine
+import com.example.kotlingraphics_v1.R
+import com.example.kotlingraphics_v1.model.Engine
 import com.example.kotlingraphics_v1.databinding.ActivityMainBinding
-import com.example.kotlingraphics_v1.logic.SpaceObject
-import com.example.kotlingraphics_v1.logic.SpacePlanet
-import com.example.kotlingraphics_v1.logic.SpacePoint
-import com.example.kotlingraphics_v1.models.ScreenMode
+import com.example.kotlingraphics_v1.model.SpacePlanet
+import com.example.kotlingraphics_v1.model.SpacePoint
+import com.example.kotlingraphics_v1.enum.ScreenMode
+import com.example.kotlingraphics_v1.view.RenderView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     private fun deployUi() {
         // Create our renderScreen
         renderView = binding.renderView
-        renderView.engine = engine
+        //renderView.engine = engine
     }
 
     private fun setUiBehaviour() {
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 MotionEvent.ACTION_DOWN -> {
                     Log.e("Engine", "${event.x}")
 
-                    val planet = SpacePlanet(event.x,event.y)
+                    val planet = SpacePlanet(event.x, event.y)
                     planet.orbitCenter = SpacePoint()
                     engine.addSpaceObject(planet)
 

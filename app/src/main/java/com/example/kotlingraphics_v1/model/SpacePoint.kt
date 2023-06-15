@@ -1,4 +1,4 @@
-package com.example.kotlingraphics_v1.logic
+package com.example.kotlingraphics_v1.model
 
 class SpacePoint() :SpaceObject() {
     var pointThickness:Double = 4.0
