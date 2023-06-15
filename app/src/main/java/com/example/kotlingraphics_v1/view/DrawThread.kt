@@ -25,18 +25,20 @@ class DrawThread(var surfaceHolder: SurfaceHolder) : Thread() {
             val currentTime = System.currentTimeMillis()
             val elapsedTime = System.currentTimeMillis()
             previousTime = currentTime
-            //Log.e("Engine",elapsedTime.toString())
 
             if (surfaceHolder.surface.isValid) {
                 try {
                     canvas = surfaceHolder.lockCanvas()
                 } finally {
                     synchronized(surfaceHolder) {
+
                         val paint = Paint()
                         paint.style = Paint.Style.FILL
                         paint.color = Color.YELLOW
+
                         val rect = RectF(0.0f, 0.0f, canvas.width.toFloat(), canvas.height.toFloat())
                         canvas.drawRect(rect,paint)
+
                         surfaceHolder.unlockCanvasAndPost(canvas)
                     }
                 }

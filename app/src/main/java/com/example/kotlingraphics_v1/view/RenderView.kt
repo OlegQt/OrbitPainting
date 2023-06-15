@@ -21,7 +21,6 @@ class RenderView @JvmOverloads constructor(context: Context, attributeSet: Attri
 
     fun resumeRender() {
         if(drawThread.isAlive){
-
         }
         else{
             drawThread = DrawThread(holder)
@@ -32,13 +31,15 @@ class RenderView @JvmOverloads constructor(context: Context, attributeSet: Attri
 
     fun pauseRender() {
         drawThread.setRunning(false)
-        Log.e("Engine","Stop")
         try {
             drawThread.join()
         }
         catch (e:InterruptedException){
             Log.e("Engine",e.message.toString())
         }
+    }
 
+    override fun performClick(): Boolean {
+        return super.performClick()
     }
 }
