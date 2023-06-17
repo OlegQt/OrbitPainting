@@ -1,6 +1,8 @@
 package com.example.kotlingraphics_v1.activities
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -99,12 +101,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         deployUi()
         setUiBehaviour()
+
+
+        val h = Handler(Looper.getMainLooper())
+        h.postDelayed({
+                      h.postDelayed({showAlertDialog()},1000)
+        },5000)
+
     }
 
     override fun onResume() {
         super.onResume()
         renderView.resumeRender() // Запускаем поток render
     }
+
 
     override fun onPause() {
         super.onPause()
