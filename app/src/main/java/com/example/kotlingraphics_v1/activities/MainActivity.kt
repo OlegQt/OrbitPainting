@@ -8,27 +8,27 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlingraphics_v1.GameViewModel
 import com.example.kotlingraphics_v1.R
-import com.example.kotlingraphics_v1.model.Engine
 import com.example.kotlingraphics_v1.databinding.ActivityMainBinding
-import com.example.kotlingraphics_v1.model.SpacePlanet
-import com.example.kotlingraphics_v1.model.SpacePoint
 import com.example.kotlingraphics_v1.enum.ScreenMode
 import com.example.kotlingraphics_v1.view.RenderView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.util.NavigableMap
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var renderView: RenderView
+    private lateinit var game:GameViewModel
 
-    private var engine = Engine()
+    private var badgeN = 0
+
     private var currentScreenMode: ScreenMode = ScreenMode.RENDER
-
 
     private fun deployUi() {
         // Create our renderScreen
         renderView = binding.renderView
-        //renderView.engine = engine
+        game = GameViewModel(renderView,Handler(Looper.getMainLooper()))
     }
 
     private fun setUiBehaviour() {
@@ -47,13 +47,9 @@ class MainActivity : AppCompatActivity() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     Log.e("Engine", "${event.x}")
-
-                    val planet = SpacePlanet(event.x, event.y)
-                    planet.orbitCenter = SpacePoint()
-                    engine.addSpaceObject(planet)
+                    game.onClick()
 
                 }
-
                 else -> {
 
                 }
@@ -69,12 +65,12 @@ class MainActivity : AppCompatActivity() {
             when (mode) {
                 ScreenMode.RENDER -> {
                     renderView.visibility = View.VISIBLE
-                    renderView.resumeRender()
+                    game.startGame()
                     changeCompleted = true
                 }
 
                 ScreenMode.OPTIONS -> {
-                    renderView.pauseRender()
+                    game.pauseGame()
                     renderView.visibility = View.GONE
                     changeCompleted = true
                 }
@@ -93,6 +89,17 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun increaseBadge(){
+        this.badgeN++
+        val b = binding.bottomMenu.getOrCreateBadge(R.id.page_1)
+        b.number=this.badgeN
+        val badgeRunnable = Runnable{
+            this.increaseBadge()
+        }
+        Handler(Looper.getMainLooper()).postDelayed(badgeRunnable,100)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -102,22 +109,18 @@ class MainActivity : AppCompatActivity() {
         deployUi()
         setUiBehaviour()
 
+       increaseBadge()
 
-        val h = Handler(Looper.getMainLooper())
-        h.postDelayed({
-                      h.postDelayed({showAlertDialog()},1000)
-        },5000)
 
     }
 
     override fun onResume() {
         super.onResume()
-        renderView.resumeRender() // Запускаем поток render
+        game.startGame()
     }
-
 
     override fun onPause() {
         super.onPause()
-        renderView.pauseRender()
+        game.pauseGame()
     }
 }

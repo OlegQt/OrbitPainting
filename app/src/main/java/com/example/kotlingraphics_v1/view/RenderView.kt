@@ -17,28 +17,6 @@ import com.example.kotlingraphics_v1.model.Engine
 class RenderView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet) :
     SurfaceView(context, attributeSet) {
 
-    private var drawThread:DrawThread = DrawThread(holder)
-
-    fun resumeRender() {
-        if(drawThread.isAlive){
-        }
-        else{
-            drawThread = DrawThread(holder)
-            drawThread.setRunning(true)
-            drawThread.start()
-        }
-    }
-
-    fun pauseRender() {
-        drawThread.setRunning(false)
-        try {
-            drawThread.join()
-        }
-        catch (e:InterruptedException){
-            Log.e("Engine",e.message.toString())
-        }
-    }
-
     override fun performClick(): Boolean {
         return super.performClick()
     }
