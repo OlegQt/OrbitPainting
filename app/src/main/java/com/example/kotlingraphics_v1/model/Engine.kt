@@ -3,6 +3,8 @@ package com.example.kotlingraphics_v1.model
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
+import android.graphics.Rect
+import android.graphics.RectF
 import android.media.MediaParser.SeekPoint
 
 class Engine {
@@ -37,7 +39,22 @@ class Engine {
         }
     }
 
-    fun addPoint(pointF: PointF){
-        listObjects.add(DPoint(pointF.x,pointF.y))
+    fun calcAllObjects(screenRect: RectF){
+        listObjects.forEach {
+            if(it is DPoint){
+                it.fallDown(screenRect.bottom)
+            }
+            else if(it is DArcBar){
+                it.calc(screenRect.bottom)
+            }
+        }
+    }
+
+    fun addPoint(pointF: PointF,time:Long){
+        //listObjects.add(DPoint(pointF.x,pointF.y))
+        val arc = DArcBar(pointF.x,pointF.y)
+        arc.setRad(time.toFloat())
+
+        listObjects.add(arc)
     }
 }

@@ -63,7 +63,7 @@ class GameViewModel(private val renderView: RenderView, private val handler: Han
             append("YPos ${clickPos.y} ")
         }.toString()
 
-        gameEngine.addPoint(clickPos)
+        gameEngine.addPoint(clickPos,clickTime)
 
         Snackbar.make(renderView, message, Snackbar.LENGTH_INDEFINITE)
             .setTextMaxLines(5)

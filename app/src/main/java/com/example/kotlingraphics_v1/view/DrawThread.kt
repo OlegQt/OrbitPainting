@@ -39,23 +39,11 @@ class DrawThread(private var surfaceHolder: SurfaceHolder, private var gameEngin
                 } finally {
                     synchronized(surfaceHolder) {
                         val paint = Paint()
-                        paint.style = Paint.Style.FILL
-                        paint.color = Color.DKGRAY
 
+                        val screen = RectF(0.0f,0.0f,canvas.width.toFloat(),canvas.height.toFloat())
+
+                        gameEngine.calcAllObjects(screen)
                         gameEngine.drawAllObjects(canvas,paint)
-
-
-/*                        var rect = RectF(0.0f, 0.0f, canvas.width.toFloat(), canvas.height.toFloat())
-                        canvas.drawRect(rect, paint)
-                        paint.color = Color.BLACK
-                        paint.textSize = 30.0f
-                        canvas.drawText("FPS ${gameEngine.fps}", 8.0f, 60.0f, paint)
-
-
-
-                        paint.color = Color.YELLOW
-                        rect =  RectF(100.0f, 100.0f, 150.0f, 150.0f)
-                        if(gameEngine.temporal) canvas.drawRect(rect,paint)*/
 
                         surfaceHolder.unlockCanvasAndPost(canvas)
                     }
