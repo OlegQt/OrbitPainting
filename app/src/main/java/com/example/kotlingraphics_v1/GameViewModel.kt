@@ -41,10 +41,9 @@ class GameViewModel(private val renderView: RenderView, private val handler: Han
     }
 
     fun onClick(){
-        gameEngine.temporal=true
     }
 
-    fun fpsTimerStart(){
+    private fun fpsTimerStart(){
         // Вызываем функцию расчета fps через каждые 250 мс
         val timerFpsRunnable = object :Runnable{
             override fun run() {

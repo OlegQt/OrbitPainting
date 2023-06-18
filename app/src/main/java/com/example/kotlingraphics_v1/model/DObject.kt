@@ -1,6 +1,8 @@
 package com.example.kotlingraphics_v1.model
 
-abstract class SpaceObject(){
+import com.example.kotlingraphics_v1.operations.Drawable
+
+abstract class DObject():Drawable {
     var xPos:Float = 0.0f
     var yPos:Float =0.0f
     var zPos:Float = 0.0f

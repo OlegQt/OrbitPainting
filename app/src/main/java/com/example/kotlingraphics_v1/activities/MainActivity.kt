@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         val badgeRunnable = Runnable{
             this.increaseBadge()
         }
-        Handler(Looper.getMainLooper()).postDelayed(badgeRunnable,100)
+        Handler(Looper.getMainLooper()).postDelayed(badgeRunnable,1000)
     }
 
 

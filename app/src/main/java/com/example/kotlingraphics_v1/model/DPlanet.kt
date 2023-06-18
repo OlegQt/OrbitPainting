@@ -1,12 +1,14 @@
 package com.example.kotlingraphics_v1.model
 
+import android.graphics.Canvas
+import android.graphics.Paint
 import com.example.kotlingraphics_v1.operations.SetRotation
 import kotlin.math.cos
 import kotlin.math.sin
 
-class SpacePlanet() : SpaceObject(), SetRotation {
+class DPlanet() : DObject(), SetRotation {
     var radius: Float = 4.0f
-    var orbitCenter: SpaceObject? = null
+    var orbitCenter: DObject? = null
 
     constructor(x: Float, y: Float) : this() {
         this.xPos = x
@@ -26,5 +28,9 @@ class SpacePlanet() : SpaceObject(), SetRotation {
         else{
             this.yPos++
         }
+    }
+
+    override fun drawObject(canvas: Canvas, paint: Paint) {
+        //TODO("Not yet implemented")
     }
 }
