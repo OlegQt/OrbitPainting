@@ -6,7 +6,7 @@ import android.graphics.Paint
 import com.example.kotlingraphics_v1.operations.Drawable
 
 class DPoint() :DObject() {
-    var pointThickness:Float = 4.0f
+    var pointThickness:Float = 6.0f
     constructor(x:Float,y:Float):this(){
         this.xPos=x
         this.yPos=y

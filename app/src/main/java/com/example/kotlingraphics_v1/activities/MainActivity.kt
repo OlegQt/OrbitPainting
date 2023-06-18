@@ -1,5 +1,6 @@
 package com.example.kotlingraphics_v1.activities
 
+import android.graphics.PointF
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -46,12 +47,10 @@ class MainActivity : AppCompatActivity() {
             // event = motionEvent
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    Log.e("Engine", "${event.x}")
-                    game.onClick()
-
+                    game.onLMouseDown(PointF(event.x,event.y))
                 }
-                else -> {
-
+                MotionEvent.ACTION_UP -> {
+                    game.onLMouseUp()
                 }
             }
             true

@@ -3,9 +3,10 @@ package com.example.kotlingraphics_v1.model
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.PointF
+import android.media.MediaParser.SeekPoint
 
 class Engine {
-    private var frameCount = 0;
+    var frameCount = 0;
     private var fps = 0
 
     private val listObjects = mutableListOf<DObject>()
@@ -34,5 +35,9 @@ class Engine {
         listObjects.forEach {
             it.drawObject(canvas, paint)
         }
+    }
+
+    fun addPoint(pointF: PointF){
+        listObjects.add(DPoint(pointF.x,pointF.y))
     }
 }
